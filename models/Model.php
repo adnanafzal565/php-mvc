@@ -21,6 +21,7 @@ class Model
 		    	access_token TEXT NULL,
 		    	reset_password TEXT NULL,
 		    	verification_code TEXT NULL,
+		    	profile_image TEXT NULL,
 		    	verified_at DATETIME NULL DEFAULT NULL,
 		    	created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 			)");

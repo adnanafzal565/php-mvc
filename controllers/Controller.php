@@ -92,14 +92,14 @@
                 // $mail->SMTPDebug = 3;                               // Enable verbose debug output
 
                 $mail->isSMTP();                                      // Set mailer to use SMTP
-                $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+                $mail->Host = SMTP_HOST;  // Specify main and backup SMTP servers
                 $mail->SMTPAuth = true;                             // Enable SMTP authentication
-                $mail->Username = 'adnanafzal565@gmail.com';                 // SMTP username
-                $mail->Password = '';                           // SMTP password
+                $mail->Username = SMTP_FROM;                 // SMTP username
+                $mail->Password = SMTP_PASSWORD;                           // SMTP password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;                            // Enable TLS encryption, `ssl` also accepted
                 $mail->Port = 465;                                    // TCP port to connect to
 
-                $mail->setFrom('adnanafzal565@gmail.com', 'Adnan Afzal');
+                $mail->setFrom(SMTP_FROM, SMTP_FROM_NAME);
                 $mail->addAddress($to);     // Add a recipient
                 $mail->isHTML(true);                                  // Set email format to HTML
 

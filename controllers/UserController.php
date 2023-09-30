@@ -5,6 +5,93 @@
 
 	class UserController extends Controller
 	{
+		public function change_password()
+		{
+			if ($_SERVER["REQUEST_METHOD"] == "POST")
+			{
+				$user = $this->auth();
+
+				$password = $_POST["password"];
+				$new_password = $_POST["new_password"];
+				$confirm_password = $_POST["confirm_password"];
+
+				if (!password_verify($password, $user->password))
+				{
+					echo json_encode([
+		        		"status" => "error",
+		        		"message" => "In-correct password."
+		        	]);
+
+		        	exit;
+				}
+
+				if ($new_password != $confirm_password)
+				{
+					echo json_encode([
+		        		"status" => "error",
+		        		"message" => "Password mis-match."
+		        	]);
+
+		        	exit;
+				}
+
+				$this->load_model("UsersModel")->change_password($user->id);
+
+				echo json_encode([
+	        		"status" => "success",
+	        		"message" => "Password has been changed."
+	        	]);
+
+	        	exit;
+			}
+
+			require_once VIEW . "/includes/header.php";
+			require_once VIEW . "/change-password.php";
+			require_once VIEW . "/includes/footer.php";
+		}
+
+		public function save_profile()
+		{
+			$user = $this->auth();
+			$file_path = $user->profile_image ?? null;
+			
+			if (isset($_FILES["profile_image"])
+				&& $_FILES["profile_image"]["size"] > 0)
+			{
+				$type = strtolower($_FILES["profile_image"]["type"]);
+				if (!in_array($type, ["image/jpeg", "image/jpg", "image/png"]))
+				{
+					echo json_encode([
+		        		"status" => "error",
+		        		"message" => "Only JPG or PNG is allowed."
+		        	]);
+		        	exit;
+				}
+
+				$file_path = "uploads/" . basename($_FILES["profile_image"]["name"]);
+				move_uploaded_file($_FILES["profile_image"]["tmp_name"], $file_path);
+
+				if (file_exists($user->profile_image))
+				{
+					unlink($user->profile_image);
+				}
+			}
+
+			$this->load_model("UsersModel")->save_profile($user->id, $file_path);
+
+			echo json_encode([
+        		"status" => "success",
+        		"message" => "Profile has been updated."
+        	]);
+		}
+
+		public function profile()
+		{
+			require_once VIEW . "/includes/header.php";
+			require_once VIEW . "/profile.php";
+			require_once VIEW . "/includes/footer.php";
+		}
+
 		public function logout()
 		{
 			$user = $this->auth();
@@ -26,7 +113,8 @@
         		"user" => [
         			"id" => $user->id,
         			"name" => $user->name,
-        			"email" => $user->email
+        			"email" => $user->email,
+        			"profile_image" => URL . "/" . $user->profile_image ?? ""
         		]
         	]);
 		}
@@ -93,9 +181,9 @@
 				exit;
 			}
 
-			require_once VIEW . "/header.php";
+			require_once VIEW . "/includes/header.php";
 			require_once VIEW . "/login.php";
-			require_once VIEW . "/footer.php";
+			require_once VIEW . "/includes/footer.php";
 		}
 
 		public function verify()
@@ -144,9 +232,9 @@
 
 		public function verify_email($email)
 		{
-			require_once VIEW . "/header.php";
+			require_once VIEW . "/includes/header.php";
 			require_once VIEW . "/verify-email.php";
-			require_once VIEW . "/footer.php";
+			require_once VIEW . "/includes/footer.php";
 		}
 
 		public function register()
@@ -188,8 +276,8 @@
 				exit;
 			}
 
-			require_once VIEW . "/header.php";
+			require_once VIEW . "/includes/header.php";
 			require_once VIEW . "/register.php";
-			require_once VIEW . "/footer.php";
+			require_once VIEW . "/includes/footer.php";
 		}
 	}

@@ -4,6 +4,29 @@ class UsersModel extends Model
 {
     private $table = "users";
 
+    public function change_password($user_id)
+    {
+        $password = password_hash($_POST["new_password"], PASSWORD_DEFAULT);
+
+        $sql = "UPDATE `" . $this->table . "` SET password=:password WHERE id = :user_id";
+        
+        $this->connection->prepare($sql)->execute([
+            "password" => $password,
+            "user_id" => $user_id
+        ]);
+    }
+
+    public function save_profile($user_id, $profile_image)
+    {
+        $sql = "UPDATE `" . $this->table . "` SET name = :name, profile_image = :profile_image WHERE id = :user_id";
+        $result = $this->connection->prepare($sql);
+        $result->execute([
+            "name" => $_POST["name"],
+            "profile_image" => $profile_image,
+            "user_id" => $user_id
+        ]);
+    }
+
     public function logout($user_id)
     {
         $sql = "UPDATE `" . $this->table . "` SET access_token = NULL WHERE id = :user_id";
@@ -157,12 +180,6 @@ class UsersModel extends Model
         $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
         $sql = "UPDATE `" . $this->table . "` SET password='$password', reset_password = NULL WHERE email = '$email' AND reset_password = '$token'";
-        mysqli_query($this->connection, $sql);
-    }
-
-    public function update_profile($user_id)
-    {   
-        $sql = "UPDATE `" . $this->table . "` SET `name` = '" . $_POST["name"] . "' WHERE id = '" . $user_id . "'";
         mysqli_query($this->connection, $sql);
     }
 }

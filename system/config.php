@@ -11,4 +11,9 @@
 	define("DB_USER", "root");
 	define("DB_PASS", "root");
 	define("DB_NAME", "php_mvc");
+
+	define("SMTP_HOST", "smtp.gmail.com");
+	define("SMTP_FROM", "adnanafzal565@gmail.com");
+	define("SMTP_FROM_NAME", "Adnan Afzal");
+	define("SMTP_PASSWORD", "");
 ?>

@@ -56,61 +56,46 @@
 							</ul>
 						</li>
 					</ul>
-					<form class="d-flex">
+					<!-- <form class="d-flex">
 						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline-success" type="submit">Search</button>
-					</form>
+					</form> -->
 				</div>
 			</div>
 		</nav>
 
 		<script>
-			Vue.createApp({
-				data() {
-					return {
-						user: null
-					}
-				},
+			const isOnHeader = true
 
-				methods: {
-					async doLogout() {
-						const response = await axios.post(
-							BASE_URL + "/user/logout",
-							null,
-							{
-								headers: {
-									Authorization: "Bearer " + localStorage.getItem("accessToken")
+			function initHeader() {
+				Vue.createApp({
+					data() {
+						return {
+							user: window.user
+						}
+					},
+
+					methods: {
+						async doLogout() {
+							const response = await axios.post(
+								BASE_URL + "/user/logout",
+								null,
+								{
+									headers: {
+										Authorization: "Bearer " + localStorage.getItem("accessToken")
+									}
 								}
-							}
-						)
+							)
 
-						if (response.data.status == "success") {
-							this.user = null
-							window.user = null
-							localStorage.removeItem("accessToken")
-						} else {
-							// swal.fire("Login", response.data.message, "error")
-						}
-					}
-				},
-
-				async mounted() {
-					const response = await axios.post(
-						BASE_URL + "/user/me",
-						null,
-						{
-							headers: {
-								Authorization: "Bearer " + localStorage.getItem("accessToken")
+							if (response.data.status == "success") {
+								this.user = null
+								window.user = null
+								localStorage.removeItem("accessToken")
+							} else {
+								// swal.fire("Login", response.data.message, "error")
 							}
 						}
-					)
-
-					if (response.data.status == "success") {
-						this.user = response.data.user
-						window.user = response.data.user
-					} else {
-						// swal.fire("Login", response.data.message, "error")
 					}
-				}
-			}).mount("#headerApp")
+				}).mount("#headerApp")
+			}
 		</script>
