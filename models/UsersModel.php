@@ -151,7 +151,7 @@ class UsersModel extends Model
 
     public function do_verify_email($email, $code)
     {
-        $sql = "UPDATE `" . $this->table . "` SET verified_at=NOW() WHERE email = :email AND verification_code = :code";
+        $sql = "UPDATE `" . $this->table . "` SET verified_at=UTC_TIMESTAMP() WHERE email = :email AND verification_code = :code";
         $result = $this->connection->prepare($sql);
         $result->execute([
             "email" => $email,
@@ -159,27 +159,46 @@ class UsersModel extends Model
         ]);
     }
 
-    public function forgot_password($token)
+    public function set_reset_token($token)
     {
         $email = $_POST["email"];
 
-        $sql = "UPDATE `" . $this->table . "` SET reset_password='$token' WHERE email = '$email'";
-        mysqli_query($this->connection, $sql);
+        $sql = "UPDATE `" . $this->table . "` SET reset_password=:token WHERE email = :email";
+        $result = $this->connection->prepare($sql);
+        $result->execute([
+            "token" => $token,
+            "email" => $email
+        ]);
+
+        // mysqli_query($this->connection, $sql);
     }
 
     public function is_reset_password($email, $token)
     {
-        $sql = "SELECT * FROM `" . $this->table . "` WHERE email = '$email' AND reset_password = '$token'";
-        $result = mysqli_query($this->connection, $sql);
+        $sql = "SELECT * FROM `" . $this->table . "` WHERE email = :email AND reset_password = :token";
+        $result = $this->connection->prepare($sql);
+        $result->execute([
+            "email" => $email,
+            "token" => $token
+        ]);
+        return ($result->fetchObject() != null);
 
-        return mysqli_num_rows($result) > 0;
+        // $result = mysqli_query($this->connection, $sql);
+        // return mysqli_num_rows($result) > 0;
     }
 
     public function reset_password($email, $token)
     {
-        $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+        $password = password_hash($_POST["new_password"], PASSWORD_DEFAULT);
 
-        $sql = "UPDATE `" . $this->table . "` SET password='$password', reset_password = NULL WHERE email = '$email' AND reset_password = '$token'";
-        mysqli_query($this->connection, $sql);
+        $sql = "UPDATE `" . $this->table . "` SET password=:password, reset_password = NULL WHERE email = :email AND reset_password = :token";
+        $result = $this->connection->prepare($sql);
+        $result->execute([
+            "password" => $password,
+            "email" => $email,
+            "token" => $token
+        ]);
+
+        // mysqli_query($this->connection, $sql);
     }
 }

@@ -5,6 +5,104 @@
 
 	class UserController extends Controller
 	{
+		public function reset_password($email, $token)
+		{
+			if ($_SERVER["REQUEST_METHOD"] == "POST")
+			{
+				$new_password = $_POST["new_password"];
+				$confirm_password = $_POST["confirm_password"];
+
+				if ($new_password != $confirm_password)
+				{
+					echo json_encode([
+		        		"status" => "error",
+		        		"message" => "Password mis-match."
+		        	]);
+
+		        	exit;
+				}
+
+				$is_requested = $this->load_model("UsersModel")->is_reset_password($email, $token);
+
+				if (!$is_requested)
+				{
+					echo json_encode([
+		        		"status" => "error",
+		        		"message" => "Request failed."
+		        	]);
+
+		        	exit;
+				}
+
+				$this->load_model("UsersModel")->reset_password($email, $token);
+
+				echo json_encode([
+	        		"status" => "success",
+	        		"message" => "Password has been reset. You can try login now."
+	        	]);
+
+	        	exit;
+			}
+
+			require_once VIEW . "/includes/header.php";
+			require_once VIEW . "/reset-password.php";
+			require_once VIEW . "/includes/footer.php";
+		}
+
+		public function send_recovery_email()
+		{
+			$email = $_POST["email"];
+			$user = $this->load_model("UsersModel")->get_by_email($email);
+
+			if ($user == null)
+			{
+				echo json_encode([
+	        		"status" => "error",
+	        		"message" => "User not found."
+	        	]);
+
+	        	exit;
+			}
+
+			if (!is_null($user->reset_password))
+			{
+				echo json_encode([
+	        		"status" => "error",
+	        		"message" => "Recovery email is already sent."
+	        	]);
+
+	        	exit;
+			}
+
+        	$token = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
+			$this->load_model("UsersModel")->set_reset_token($token);
+
+			$email = file_get_contents("views/emails/reset-password.php");
+            $variables = array(
+            	"{{ APP_NAME }}" => APP_NAME,
+                "{{ website_url }}" => URL,
+                "{{ token }}" => $token,
+                "{{ name }}" => $user->name,
+                "{{ email }}" => $user->email
+            );
+         
+            foreach ($variables as $key => $value)
+                $email = str_replace($key, $value, $email);
+            $this->send_mail($_POST["email"], "Recovery Email - " . APP_NAME, $email);
+
+            echo json_encode([
+        		"status" => "success",
+        		"message" => "Recovery email has been sent."
+        	]);
+		}
+
+		public function forgot_password()
+		{
+			require_once VIEW . "/includes/header.php";
+			require_once VIEW . "/forgot-password.php";
+			require_once VIEW . "/includes/footer.php";
+		}
+
 		public function change_password()
 		{
 			if ($_SERVER["REQUEST_METHOD"] == "POST")
@@ -254,7 +352,7 @@
 
 	            $verification_code = $UsersModel->register();
                 
-                $email = file_get_contents("views/emails/verification-email.php");
+                $email = file_get_contents("views/emails/verification.php");
                 $variables = array(
                 	"{{ APP_NAME }}" => APP_NAME,
                     "{{ website_url }}" => URL,
