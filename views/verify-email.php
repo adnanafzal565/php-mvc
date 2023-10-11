@@ -44,6 +44,9 @@
 
 		if (response.data.status == "success") {
 			swal.fire("Verify email", response.data.message, "success")
+				.then(function () {
+					window.location.href = BASE_URL + "/user/login"
+				})
 		} else {
 			swal.fire("Verify email", response.data.message, "error")
 		}

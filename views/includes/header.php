@@ -91,6 +91,7 @@
 								this.user = null
 								window.user = null
 								localStorage.removeItem("accessToken")
+								window.location.reload()
 							} else {
 								// swal.fire("Login", response.data.message, "error")
 							}
