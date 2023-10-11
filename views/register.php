@@ -49,6 +49,9 @@
 
 		if (response.data.status == "success") {
 			swal.fire("Register", response.data.message, "success")
+				.then(function () {
+					window.location.href = BASE_URL + "/user/verify_email/" + form.email.value
+				})
 		} else {
 			swal.fire("Register", response.data.message, "error")
 		}
