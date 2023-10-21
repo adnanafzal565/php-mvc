@@ -45,7 +45,14 @@
 			}
 			else
 			{
-				show_404();
+				if(method_exists($controller, "index"))
+				{
+					$controller->index($parts[1]);
+				}
+				else
+				{
+					show_404();
+				}
 			}
 		}
 		else
@@ -62,8 +69,11 @@
 		$controller->index();
 	}
 	
-	function show_404()
+	function show_404($message = "Page not found.")
 	{
-		require_once(VIEW . "/404/404-index.php");
+		require_once VIEW . "/includes/header.php";
+		require_once VIEW . "/errors/404.php";
+		require_once VIEW . "/includes/footer.php";
+		exit;
 	}
 ?>
