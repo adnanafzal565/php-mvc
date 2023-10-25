@@ -22,9 +22,30 @@ class Model
 		    	reset_password TEXT NULL,
 		    	verification_code TEXT NULL,
 		    	profile_image TEXT NULL,
+		    	type ENUM ('user', 'recruiter', 'admin') DEFAULT 'user',
 		    	verified_at DATETIME NULL DEFAULT NULL,
 		    	created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 			)");
+
+			// $this->connection->query("ALTER TABLE users MODIFY COLUMN type ENUM('user', 'recruiter', 'admin') DEFAULT 'user'");
+
+			$sql = "SELECT * FROM users WHERE type = 'admin'";
+			$result = $this->connection->prepare($sql);
+			$result->execute();
+			$admin = $result->fetchObject();
+
+			if ($admin == null)
+			{
+				$sql = "INSERT INTO `users`(`name`, `email`, `password`, verification_code, type, created_at, verified_at) VALUES (:name, :email, :password, :verification_code, :type, UTC_TIMESTAMP(), UTC_TIMESTAMP())";
+		        $result = $this->connection->prepare($sql);
+		        $result->execute([
+		            "name" => "Admin",
+		            "email" => "admin@gmail.com",
+		            "password" => password_hash(ADMIN_PASSWORD, PASSWORD_DEFAULT),
+		            "verification_code" => 0,
+		            "type" => "admin"
+		        ]);
+			}
 	    }
 	}
 

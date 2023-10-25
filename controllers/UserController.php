@@ -205,15 +205,23 @@
 		{
 			$user = $this->auth();
 
+			$user_obj = [
+    			"id" => $user->id,
+    			"name" => $user->name,
+    			"email" => $user->email,
+    			"profile_image" => "",
+    			"type" => $user->type
+    		];
+
+    		if (!empty($user->profile_image))
+    		{
+    			$user_obj["profile_image"] = URL . "/" . $user->profile_image;
+    		}
+
 			echo json_encode([
         		"status" => "success",
         		"message" => "Data has been fetched.",
-        		"user" => [
-        			"id" => $user->id,
-        			"name" => $user->name,
-        			"email" => $user->email,
-        			"profile_image" => URL . "/" . $user->profile_image ?? ""
-        		]
+        		"user" => $user_obj
         	]);
 		}
 

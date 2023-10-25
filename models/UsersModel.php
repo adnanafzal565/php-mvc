@@ -4,6 +4,19 @@ class UsersModel extends Model
 {
     private $table = "users";
 
+    public function count()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM users";
+        $result = $this->connection->prepare($sql);
+        $result->execute();
+        $result = $result->fetchObject();
+        if ($result == null)
+        {
+            return 0;
+        }
+        return $result->total;
+    }
+
     public function change_password($user_id)
     {
         $password = password_hash($_POST["new_password"], PASSWORD_DEFAULT);

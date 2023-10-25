@@ -13,7 +13,8 @@
 		<script src="<?php echo JS; ?>/axios.min.js"></script>
 		<script src="<?php echo JS; ?>/sweetalert2@11.js"></script>
 		<script src="<?php echo JS; ?>/all.js"></script>
-		<script src="<?php echo JS; ?>/vue.global.prod.js"></script>
+		<script src="<?php echo JS; ?>/vue.global.js"></script>
+    	<!-- <script src="<?php echo JS; ?>/vue.global.prod.js"></script> -->
 	</head>
 
 	<body>
