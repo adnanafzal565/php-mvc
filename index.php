@@ -57,9 +57,16 @@
 		}
 		else
 		{
-			require_once("controllers/HomeController.php");
-			$controller = new HomeController();
-			$controller->index();
+			if(method_exists($controller, "index"))
+			{
+				$controller->index();
+			}
+			else
+			{
+				require_once("controllers/HomeController.php");
+				$controller = new HomeController();
+				$controller->index();
+			}
 		}
 	}
 	else
