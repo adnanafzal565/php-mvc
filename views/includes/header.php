@@ -40,10 +40,10 @@
 
 						<template v-if="user == null">
 							<li class="nav-item">
-								<a class="nav-link" href="<?php echo URL; ?>/user/login">Login</a>
+								<a class="nav-link" href="<?php echo URL; ?>/login">Login</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="<?php echo URL; ?>/user/register">Register</a>
+								<a class="nav-link" href="<?php echo URL; ?>/register">Register</a>
 							</li>
 						</template>
 
@@ -51,7 +51,7 @@
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
 								v-text="user.name"></a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="<?php echo URL; ?>/user/profile">Profile</a></li>
+								<li><a class="dropdown-item" href="<?php echo URL; ?>/profile">Profile</a></li>
 								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" v-on:click="doLogout" href="javascript:void(0)">Logout</a></li>
 							</ul>
@@ -79,7 +79,7 @@
 					methods: {
 						async doLogout() {
 							const response = await axios.post(
-								BASE_URL + "/user/logout",
+								BASE_URL + "/logout",
 								null,
 								{
 									headers: {

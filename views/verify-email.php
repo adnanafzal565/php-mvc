@@ -35,7 +35,7 @@
 		$("#loader").show()
 
 		const response = await axios.post(
-			BASE_URL + "/user/verify",
+			BASE_URL + "/verify",
 			formData
 		)
 
@@ -45,7 +45,7 @@
 		if (response.data.status == "success") {
 			swal.fire("Verify email", response.data.message, "success")
 				.then(function () {
-					window.location.href = BASE_URL + "/user/login"
+					window.location.href = BASE_URL + "/login"
 				})
 		} else {
 			swal.fire("Verify email", response.data.message, "error")

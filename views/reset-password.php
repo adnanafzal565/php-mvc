@@ -45,7 +45,7 @@
 		$("#loader").show()
 
 		const response = await axios.post(
-			BASE_URL + "/user/reset_password/" + form.email.value + "/" + form.token.value,
+			BASE_URL + "/reset-password/" + form.email.value + "/" + form.token.value,
 			formData
 		)
 
@@ -54,6 +54,9 @@
 
 		if (response.data.status == "success") {
 			swal.fire("Reset password", response.data.message, "success")
+				.then(function () {
+					window.location.href = BASE_URL + "/login"
+				})
 		} else {
 			swal.fire("Reset password", response.data.message, "error")
 		}

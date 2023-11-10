@@ -25,7 +25,7 @@
             $this->user = $this->get_logged_in_user();
 		}
 
-        protected function auth()
+        protected function auth($optional = false, $type = "")
         {
             try
             {
@@ -36,6 +36,11 @@
 
                 if ($exp < time())
                 {
+                    if ($optional)
+                    {
+                        return null;
+                    }
+
                     echo json_encode([
                         "status" => "error",
                         "message" => "You have been logged-out."
@@ -48,12 +53,30 @@
 
                 if ($user == null)
                 {
+                    if ($optional)
+                    {
+                        return null;
+                    }
+
                     echo json_encode([
                         "status" => "error",
                         "message" => "You have been logged-out."
                     ]);
 
                     exit;
+                }
+
+                if (!empty($type))
+                {
+                    if ($user->type != $type && $user->type != "admin")
+                    {
+                        echo json_encode([
+                            "status" => "error",
+                            "message" => "Un-authorized."
+                        ]);
+
+                        exit;
+                    }
                 }
 
                 return $user;

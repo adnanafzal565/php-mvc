@@ -453,7 +453,7 @@
                           </v:roundrect>
                         <![endif]-->
 
-                          <a href="{{ website_url }}/user/reset_password/{{ email }}/{{ token }}"
+                          <a href="{{ website_url }}/reset-password/{{ email }}/{{ token }}"
                             style="background-color:#41CC00;background-image:url(https://www.filepicker.io/api/file/N8GiNGsmT6mK6ORk00S7);border:1px solid #407429;border-radius:4px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:17px;font-weight:bold;text-shadow: -1px -1px #47A54B;line-height:38px;text-align:center;text-decoration:none;width:190px;-webkit-text-size-adjust:none;mso-hide:all;
                               margin-top: 20px;">
                             Reset password

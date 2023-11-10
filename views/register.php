@@ -40,7 +40,7 @@
 		$("#loader").show()
 
 		const response = await axios.post(
-			BASE_URL + "/user/register",
+			BASE_URL + "/register",
 			formData
 		)
 
@@ -50,7 +50,7 @@
 		if (response.data.status == "success") {
 			swal.fire("Register", response.data.message, "success")
 				.then(function () {
-					window.location.href = BASE_URL + "/user/verify_email/" + form.email.value
+					window.location.href = BASE_URL + "/verify-email/" + form.email.value
 				})
 		} else {
 			swal.fire("Register", response.data.message, "error")

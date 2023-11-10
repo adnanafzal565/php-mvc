@@ -1,10 +1,10 @@
 <ul class="list-group" id="left-menu-profile">
 	<li class="list-group-item">
-		<a href="<?php echo URL; ?>/user/profile">My profile</a>	
+		<a href="<?php echo URL; ?>/profile">My profile</a>	
 	</li>
 
 	<li class="list-group-item">
-		<a href="<?php echo URL; ?>/user/change_password">Change password</a>
+		<a href="<?php echo URL; ?>/change-password">Change password</a>
 	</li>
 </ul>
 

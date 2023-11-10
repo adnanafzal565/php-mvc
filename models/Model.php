@@ -11,6 +11,7 @@ class Model
 		    // $this->connection = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 		    $this->connection = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
 
+		    // $this->connection->query("SET foreign_key_checks = 0;");
 		    // $this->connection->query("DROP TABLE IF EXISTS users");
 
 		    $this->connection->query("CREATE TABLE IF NOT EXISTS users(
@@ -22,7 +23,7 @@ class Model
 		    	reset_password TEXT NULL,
 		    	verification_code TEXT NULL,
 		    	profile_image TEXT NULL,
-		    	type ENUM ('user', 'recruiter', 'admin') DEFAULT 'user',
+		    	type ENUM ('user', 'admin') DEFAULT 'user',
 		    	verified_at DATETIME NULL DEFAULT NULL,
 		    	created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 			)");

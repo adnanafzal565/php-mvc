@@ -64,7 +64,7 @@
 
 	                try {
 	                    const response = await axios.post(
-	                        BASE_URL + "/user/change_password",
+	                        BASE_URL + "/change-password",
 	                        formData,
 	                        {
 								headers: {

@@ -59,7 +59,7 @@
 
 	                try {
 	                    const response = await axios.post(
-	                        BASE_URL + "/user/save_profile",
+	                        BASE_URL + "/save-profile",
 	                        formData,
 	                        {
 								headers: {

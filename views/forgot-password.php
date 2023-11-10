@@ -17,7 +17,7 @@
 			</form>
 
 			<p style="margin-top: 10px;">
-				<a href="<?php echo URL; ?>/user/login">Login</a>
+				<a href="<?php echo URL; ?>/login">Login</a>
 			</p>
 		</div>
 	</div>
@@ -34,7 +34,7 @@
 		$("#loader").show()
 
 		const response = await axios.post(
-			BASE_URL + "/user/send_recovery_email",
+			BASE_URL + "/send-recovery-email",
 			formData
 		)
 

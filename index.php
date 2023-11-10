@@ -15,8 +15,10 @@
 	require_once("controllers/Controller.php");
 	require_once("models/Model.php");
 	require_once('vendor/autoload.php');
+	require_once('system/functions.php');
+	require_once('system/routes.php');
 	
-	if(isset($_GET["url"]))
+	/*if(isset($_GET["url"]))
 	{
 		$parts = explode("/", $_GET["url"]);
 		if(file_exists("controllers/" . ucfirst($parts[0]) . "Controller.php"))
@@ -74,13 +76,5 @@
 		require_once("controllers/HomeController.php");
 		$controller = new HomeController();
 		$controller->index();
-	}
-	
-	function show_404($message = "Page not found.")
-	{
-		require_once VIEW . "/includes/header.php";
-		require_once VIEW . "/errors/404.php";
-		require_once VIEW . "/includes/footer.php";
-		exit;
-	}
+	}*/
 ?>

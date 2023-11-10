@@ -22,7 +22,7 @@
 			</form>
 
 			<p style="margin-top: 10px;">
-				<a href="<?php echo URL; ?>/user/forgot_password">Forgot password ?</a>
+				<a href="<?php echo URL; ?>/forgot-password">Forgot password ?</a>
 			</p>
 		</div>
 	</div>
@@ -39,7 +39,7 @@
 		$("#loader").show()
 
 		const response = await axios.post(
-			BASE_URL + "/user/login",
+			BASE_URL + "/login",
 			formData
 		)
 
