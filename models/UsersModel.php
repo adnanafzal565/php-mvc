@@ -4,6 +4,19 @@ class UsersModel extends Model
 {
     private $table = "users";
 
+    public function count_by_type($type)
+    {
+        $sql = "SELECT COUNT(*) AS total FROM users WHERE type = ?";
+        $result = $this->connection->prepare($sql);
+        $result->execute([$type]);
+        $result = $result->fetchObject();
+        if ($result == null)
+        {
+            return 0;
+        }
+        return $result->total;
+    }
+
     public function count()
     {
         $sql = "SELECT COUNT(*) AS total FROM users";

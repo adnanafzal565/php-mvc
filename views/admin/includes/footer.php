@@ -64,7 +64,7 @@
     <script>
         async function getUser() {
             const response = await axios.post(
-                BASE_URL + "/user/me",
+                BASE_URL + "/user",
                 null,
                 {
                     headers: {

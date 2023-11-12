@@ -16,7 +16,7 @@
 	define("SMTP_HOST", "smtp.gmail.com");
 	define("SMTP_FROM", "adnanafzal565@gmail.com");
 	define("SMTP_FROM_NAME", "Adnan Afzal");
-	define("SMTP_PASSWORD", "");
+	define("SMTP_PASSWORD", "wyzlcwmxltvceblw");
 
 	define("ADMIN_PASSWORD", "admin");
 ?>

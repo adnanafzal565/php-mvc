@@ -110,7 +110,7 @@
                 $("#loader").show()
 
                 const response = await axios.post(
-                    BASE_URL + "/user/login",
+                    BASE_URL + "/login",
                     formData
                 )
 

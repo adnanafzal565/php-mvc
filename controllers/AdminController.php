@@ -5,8 +5,7 @@ class AdminController extends Controller
 	public function stats()
 	{
 		$user = $this->auth(false, "admin");
-
-		$users = $this->load_model("UsersModel")->count();
+		$users = $this->load_model("UsersModel")->count_by_type("user");
 
 		echo json_encode([
     		"status" => "success",

@@ -225,7 +225,7 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)"
-                                    v-on:click="doLogout" data-toggle="modal" data-target="#logoutModal">
+                                    v-on:click="doLogout">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -252,7 +252,7 @@
                             methods: {
                                 async doLogout() {
                                     const response = await axios.post(
-                                        BASE_URL + "/user/logout",
+                                        BASE_URL + "/logout",
                                         null,
                                         {
                                             headers: {
