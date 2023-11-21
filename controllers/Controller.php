@@ -213,6 +213,14 @@
             return $string ? implode(', ', $string) . ' ago' : 'just now';
         }
 
+        public function convertToReadableSize($size)
+        {
+            $base = log($size) / log(1024);
+            $suffix = array("", "KB", "MB", "GB", "TB");
+            $f_base = floor($base);
+            return round(pow(1024, $base - $f_base), 1) . " " . $suffix[$f_base];
+        }
+
         public function goto_admin_login()
         {
             header("Location: " . URL . "admin/login");

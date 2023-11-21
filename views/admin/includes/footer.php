@@ -87,6 +87,10 @@
                 if (typeof isOnHeader !== "undefined" && isOnHeader) {
                     initHeader()
                 }
+
+                if (typeof initApp !== "undefined") {
+                    initApp()
+                }
             } else {
                 // swal.fire("Login", response.data.message, "error")
                 window.location.href = BASE_URL + "/admin/login"
