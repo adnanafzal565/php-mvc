@@ -91,6 +91,19 @@
         </ul>
         <!-- End of Sidebar -->
 
+        <script>
+            const li = document.querySelectorAll("#accordionSidebar li")
+            for (let a = 0; a < li.length; a++) {
+                li[a].className = "nav-item"
+
+                const anchor = li[a].querySelector("a")
+
+                if (anchor.getAttribute("href") == window.location.href) {
+                    li[a].className = "nav-item active"
+                }
+            }
+        </script>
+
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
