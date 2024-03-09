@@ -1,4 +1,5 @@
 <?php
+	require_once("secure.php");
 	define("APP_NAME", "PHP MVC");
 	define("URL", "http://localhost:8888/opensource/php-mvc");
 	define("VIEW", "views");

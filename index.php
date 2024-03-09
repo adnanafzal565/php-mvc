@@ -9,6 +9,7 @@
 	// set_error_handler("exception_error_handler");
     
     session_start();
+    define("SECURE_PAGE", true);
 	
 	require_once("system/config.php");
 	require_once("system/Security.php");

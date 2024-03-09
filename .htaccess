@@ -1,3 +1,10 @@
+<IfModule mod_rewrite.c>
+    <FilesMatch .env>
+        order allow,deny
+        deny from all
+    </FilesMatch>
+</IfModule>
+
 Options -Indexes
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
