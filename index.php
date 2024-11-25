@@ -11,6 +11,7 @@
     session_start();
     define("SECURE_PAGE", true);
 	
+	require_once("installer.php");
 	require_once("system/config.php");
 	require_once("system/Security.php");
 	require_once("controllers/Controller.php");
