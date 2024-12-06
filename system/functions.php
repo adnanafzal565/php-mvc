@@ -10,6 +10,10 @@ $url.= $_SERVER['HTTP_HOST'];
 // Append the requested resource location to the URL   
 $url.= $_SERVER['REQUEST_URI'];
 
+$url = explode("?", $url);
+if (count($url) > 0)
+	$url = $url[0];
+
 function show_404($message = "Page not found.")
 {
 	require_once VIEW . "/includes/header.php";

@@ -169,10 +169,8 @@
 				$file_path = "uploads/" . basename($_FILES["profile_image"]["name"]);
 				move_uploaded_file($_FILES["profile_image"]["tmp_name"], $file_path);
 
-				if (file_exists($user->profile_image))
-				{
+				if ($user->profile_image && file_exists($user->profile_image))
 					unlink($user->profile_image);
-				}
 			}
 
 			$this->load_model("UsersModel")->save_profile($user->id, $file_path);

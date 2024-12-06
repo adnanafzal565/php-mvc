@@ -48,7 +48,7 @@
 
 		if (response.data.status == "success") {
 			// swal.fire("Login", response.data.message, "success")
-			localStorage.setItem("accessToken", response.data.token)
+			localStorage.setItem(accessTokenKey, response.data.token)
 			window.location.href = BASE_URL
 		} else {
 			swal.fire("Login", response.data.message, "error")

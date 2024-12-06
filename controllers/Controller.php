@@ -83,6 +83,11 @@
             }
             catch (\Exception $exp)
             {
+                if ($optional)
+                {
+                    return null;
+                }
+                
                 echo json_encode([
                     "status" => "error",
                     "message" => "You have been logged-out."

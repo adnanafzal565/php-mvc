@@ -15,6 +15,8 @@
 		<script src="<?php echo JS; ?>/all.js"></script>
 		<script src="<?php echo JS; ?>/vue.global.js"></script>
     	<!-- <script src="<?php echo JS; ?>/vue.global.prod.js"></script> -->
+
+    	<script src="<?php echo JS; ?>/script.js?v=<?= time(); ?>"></script>
 	</head>
 
 	<body>
@@ -22,7 +24,7 @@
 		<input type="hidden" id="BASE_URL" value="<?php echo URL; ?>" />
 
 		<script>
-			window.user = null
+			let user = null
 			const BASE_URL = document.getElementById("BASE_URL").value
 		</script>
 
@@ -72,7 +74,7 @@
 				Vue.createApp({
 					data() {
 						return {
-							user: window.user
+							user: user
 						}
 					},
 
@@ -90,7 +92,7 @@
 
 							if (response.data.status == "success") {
 								this.user = null
-								window.user = null
+								user = null
 								localStorage.removeItem("accessToken")
 								window.location.reload()
 							} else {
